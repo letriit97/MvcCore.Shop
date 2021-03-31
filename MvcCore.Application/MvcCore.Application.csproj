@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MvcCore.ViewModels\MvcCore.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>
