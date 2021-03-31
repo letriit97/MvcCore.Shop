@@ -7,5 +7,8 @@
 	+ Microsoft.EntityFrameworkCore.SqlServer
 	+ Microsoft.EntityFrameworkCore.Design
 	+ Microsoft.EntityFrameworkCore.Tools
+
+# Data Seeding - https://docs.microsoft.com/en-us/ef/core/modeling/data-seeding
+
 # How to Configure and Run
 # How to contribute

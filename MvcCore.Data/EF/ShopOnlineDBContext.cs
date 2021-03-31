@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MvcCore.Data.Configurations;
 using MvcCore.Data.Entities;
+using MvcCore.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -47,7 +48,7 @@ namespace MvcCore.Data.EF
 
 
             //2. Data Seeding -- Khởi Tại Data Mẫu -- Call to ShopOnline.Data.Extensions.ModelBuilderExtensions
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
             //base.OnModelCreating(modelBuilder); 
         }
 
