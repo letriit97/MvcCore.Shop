@@ -25,7 +25,7 @@ namespace MvcCore.BackendApi.Controllers
         //[HttpGet("/{languageID}")]
         //public async Task<IActionResult> GetAllPaging(int languageID, [FromQuery] GetProductPagingRequest request)
         //{
-        //    var product = await _ProductServices.GetAllbyCategoryID(languageID, request);
+        //    var product = await _productServices.GetAllbyCategoryID(languageID, request);
         //    return Ok(product);
         //}
 
@@ -36,14 +36,14 @@ namespace MvcCore.BackendApi.Controllers
         [HttpGet("paging")]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetProductAdminPagingRequest request)
         {
-            var product = await _ProductServices.GetAllPaging(request);
+            var product = await _productServices.GetAllPaging(request);
             return Ok(product);
         }
 
         [HttpGet("{productID}/{languageID}")]
         public async Task<IActionResult> GetByID(int productID, int languageID)
         {
-            var product = await _ProductServices.GetByID(productID, languageID);
+            var product = await _productServices.GetByID(productID, languageID);
             if (product == null)
                 return NotFound();
             //return BadRequest("Cannot fint product");
@@ -60,11 +60,11 @@ namespace MvcCore.BackendApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var productId = await _ProductServices.Create(request);
+            var productId = await _productServices.Create(request);
             if (productId == 0)
                 return BadRequest();
 
-            var product = await _ProductServices.GetByID(productId, request.LanguageID);
+            var product = await _productServices.GetByID(productId, request.LanguageID);
 
             return CreatedAtAction(nameof(GetByID), new { id = productId }, product);
         }
@@ -76,7 +76,7 @@ namespace MvcCore.BackendApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var affectedResult = await _ProductServices.Update(request);
+            var affectedResult = await _productServices.Update(request);
 
             if (affectedResult == 0)
                 return BadRequest();
@@ -86,7 +86,7 @@ namespace MvcCore.BackendApi.Controllers
         [HttpDelete("{productId}")]
         public async Task<IActionResult> Delete(int productId)
         {
-            var affectedResult = await _ProductServices.Delete(productId);
+            var affectedResult = await _productServices.Delete(productId);
 
             if (affectedResult == 0)
                 return BadRequest();
@@ -97,7 +97,7 @@ namespace MvcCore.BackendApi.Controllers
         [HttpPatch("price/{productID}/{newprice}")]
         public async Task<IActionResult> UpdatePrice(int productID, decimal newPrice)
         {
-            var isSuccess = await _ProductServices.UpdatePrice(productID, newPrice);
+            var isSuccess = await _productServices.UpdatePrice(productID, newPrice);
             if (isSuccess == true)
                 return Ok();
             return BadRequest();
@@ -115,13 +115,13 @@ namespace MvcCore.BackendApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            int imageID = await _ProductServices.AddImages(productID, request);
+            int imageID = await _productServices.AddImages(productID, request);
             if (imageID == 0)
             {
                 return BadRequest();
             }
 
-            var Images = await _ProductServices.GetImageByID(imageID);
+            var Images = await _productServices.GetImageByID(imageID);
 
             return CreatedAtAction(nameof(GetImageByID), new { id = imageID }, Images);
         }
@@ -135,7 +135,7 @@ namespace MvcCore.BackendApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var pImage = await _ProductServices.UpdateImages(imageID, request);
+            var pImage = await _productServices.UpdateImages(imageID, request);
             if (pImage == 0)
                 return BadRequest();
             return Ok();
@@ -148,7 +148,7 @@ namespace MvcCore.BackendApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await _ProductServices.RemoveImages(imageID);
+            var result = await _productServices.RemoveImages(imageID);
             if (result == 0)
                 return BadRequest();
 
@@ -158,7 +158,7 @@ namespace MvcCore.BackendApi.Controllers
         [HttpGet("{productID}/images/{imageID}")]
         public async Task<IActionResult> GetImageByID(int productID, int imageID)
         {
-            var image = await _ProductServices.GetImageByID(imageID);
+            var image = await _productServices.GetImageByID(imageID);
             if (image == null)
                 //return NotFound();
                 return BadRequest("Cannot fint product");
