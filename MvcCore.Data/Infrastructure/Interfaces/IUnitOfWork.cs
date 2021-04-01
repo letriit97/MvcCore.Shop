@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace MvcCore.UoW
+namespace MvcCore.Data.Infrastructure.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

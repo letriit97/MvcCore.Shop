@@ -5,8 +5,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MvcCore.UoW
+namespace MvcCore.Data.Infrastructure.Interfaces
 {
+    /// <summary>
+    /// The Repository interface.
+    /// </summary>
+    /// <typeparam name="T">The model object</typeparam>
     public interface IRepository<T> : IDisposable where T : class
     {
         /// <summary>
@@ -59,7 +63,10 @@ namespace MvcCore.UoW
         /// <summary>
         /// The update.
         /// </summary>
-        /// <param name="entity">The entity.</param>
+        /// <param name="entity">The entity.</param
+        /// 
+
+
         void Update(T entity);
 
         /// <summary>
@@ -110,6 +117,7 @@ namespace MvcCore.UoW
         /// </summary>
         /// <returns>Task&lt;IEnumerable&lt;T&gt;&gt;.</returns>
         Task<IEnumerable<T>> ListAsync();
+
         /// <summary>
         /// Lists the asynchronous.
         /// </summary>
