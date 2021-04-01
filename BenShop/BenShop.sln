@@ -16,7 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcCore.Application", "..\M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcCore.ViewModels", "..\MvcCore.ViewModels\MvcCore.ViewModels.csproj", "{6048FFB7-CD00-4AF1-8FF9-9367626556AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcCore.Utilities", "..\MvcCore.Utilities\MvcCore.Utilities.csproj", "{93F41856-9F87-4B90-AD8B-D185D20DAEB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcCore.Utilities", "..\MvcCore.Utilities\MvcCore.Utilities.csproj", "{93F41856-9F87-4B90-AD8B-D185D20DAEB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcCore.BackendApi", "..\MvcCore.BackendApi\MvcCore.BackendApi.csproj", "{87C3E753-E7DB-4E9E-AAFD-264EDD9A4170}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{93F41856-9F87-4B90-AD8B-D185D20DAEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93F41856-9F87-4B90-AD8B-D185D20DAEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93F41856-9F87-4B90-AD8B-D185D20DAEB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87C3E753-E7DB-4E9E-AAFD-264EDD9A4170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87C3E753-E7DB-4E9E-AAFD-264EDD9A4170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87C3E753-E7DB-4E9E-AAFD-264EDD9A4170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87C3E753-E7DB-4E9E-AAFD-264EDD9A4170}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
