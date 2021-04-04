@@ -13,6 +13,12 @@
             Message = message;
         }
 
+        public ApiSuccess(T result)
+        {
+            StatusCode = 200;
+            Result = result;
+        }
+
         public ApiSuccess(T result, string message)
         {
             StatusCode = 200;

@@ -1,12 +1,21 @@
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MvcCore.Application.Catalog.Products;
+using MvcCore.Application.Commons;
+using MvcCore.Application.Systems.Users;
 using MvcCore.Data.EF;
+using MvcCore.Data.Entities;
 using MvcCore.Utilities.Constants;
+using MvcCore.ViewModels.Systems.Users;
 using System.Collections.Generic;
 
 namespace MvcCore.BackendApi
@@ -26,6 +35,18 @@ namespace MvcCore.BackendApi
             services.AddDbContext<ShopOnlineDBContext>(option => option.UseSqlServer
                 (
                 Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+
+            services.AddIdentity<AppUsers, AppRoles>()
+                .AddEntityFrameworkStores<ShopOnlineDBContext>()
+                .AddDefaultTokenProviders();
+
+            //Declare DI
+            services.AddTransient<IStoreageServices, FileStorageService>();
+            services.AddTransient<IProductServices, ProductServices>();
+            services.AddTransient<UserManager<AppUsers>, UserManager<AppUsers>>();
+            services.AddTransient<SignInManager<AppUsers>, SignInManager<AppUsers>>();
+            services.AddTransient<RoleManager<AppRoles>, RoleManager<AppRoles>>();
+            services.AddTransient<IUserServices, UserServices>();
 
             // 1. Add SwaggerBucket -- Add
             services.AddSwaggerGen(x =>
@@ -63,7 +84,33 @@ namespace MvcCore.BackendApi
                     });
             });
 
-            services.AddControllersWithViews();
+            // 4.Fluent Validation
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+
+            string issuer = Configuration.GetValue<string>("Tokens:Issuer");
+            string signingKey = Configuration.GetValue<string>("Tokens:Key");
+            byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = issuer,
+                    ValidateAudience = true,
+                    ValidAudience = issuer,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = System.TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,6 +128,7 @@ namespace MvcCore.BackendApi
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseRouting();
 
