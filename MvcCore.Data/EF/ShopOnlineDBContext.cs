@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MvcCore.Data.Configurations;
 using MvcCore.Data.Entities;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace MvcCore.Data.EF
 {
-    public class ShopOnlineDBContext : DbContext
+    public class ShopOnlineDBContext : IdentityDbContext<AppUsers, AppRoles, Guid>
     {
         public ShopOnlineDBContext(DbContextOptions options) : base(options)
         {
